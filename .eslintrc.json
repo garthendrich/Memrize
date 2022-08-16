@@ -26,5 +26,5 @@
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ]
   },
-  "ignorePatterns": ["tailwind.config.cjs"]
+  "ignorePatterns": ["**/*.config.*"]
 }
