@@ -16,7 +16,7 @@
     },
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": ["tsconfig.json"]
+    "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
@@ -26,5 +26,13 @@
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ]
   },
-  "ignorePatterns": ["**/*.config.*"]
+  "ignorePatterns": ["**/*.config.*"],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
 }
