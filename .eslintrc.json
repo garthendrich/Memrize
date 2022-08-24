@@ -22,9 +22,10 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
-      2,
-      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-    ]
+      "error",
+      { "extensions": [".js", ".tsx"] }
+    ],
+    "import/prefer-default-export": "off"
   },
   "ignorePatterns": ["**/*.config.*"],
   "settings": {
