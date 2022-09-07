@@ -1,9 +1,9 @@
 export default {
-  "*.{ts,tsx}": () => [
+  "*.{ts,tsx}": (files) => [
     "tsc --pretty",
-    "eslint --fix",
-    "prettier --write --ignore-unknown",
+    `eslint --fix ${files.join(" ")}`,
+    `prettier --write ${files.join(" ")}`,
   ],
-  "*.{js,jsx}": ["eslint --fix", "prettier --write --ignore-unknown"],
+  "*.{js,jsx}": ["eslint --fix", "prettier --write"],
   "!*.{js,jsx,ts,tsx}": "prettier --write --ignore-unknown",
 };
