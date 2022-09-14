@@ -1,18 +1,21 @@
 export interface ButtonProps {
   variant?: "primary" | "secondary";
-  children: String;
+  children: String | JSX.Element;
 }
 
 export function Button({ variant = "primary", children }: ButtonProps) {
-  const buttonTypeStyles = {
-    primary: " bg-white text-stroke hover:bg-slate-200",
-    secondary: " border border-white text-white hover:bg-slate-900",
+  const stylesBasedOnChildren =
+    typeof children === "string" ? "px-4 py-2 rounded" : "p-2 rounded-full";
+
+  const buttonVariantStyles = {
+    primary: "bg-white text-stroke hover:bg-slate-200",
+    secondary: "border border-white text-white hover:bg-slate-900",
   };
 
   return (
     <button
       type="button"
-      className={`rounded px-4 py-2 shadow-button active:translate-y-1 active:shadow-none ${buttonTypeStyles[variant]}`}
+      className={`shadow-button active:translate-y-1 active:shadow-none ${stylesBasedOnChildren} ${buttonVariantStyles[variant]}`}
     >
       {children}
     </button>
