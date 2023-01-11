@@ -11,13 +11,13 @@ export function HomePage() {
   return (
     <>
       <Header>
-        <Header.Segment placement="center">
+        <Header.Segment justify="justify-center">
           <MemrizeLogo className="mr-4 h-8 w-8" />
           <p className="text-2xl text-white">Memrize</p>
         </Header.Segment>
       </Header>
       <MainPanel>
-        <p className="mb-8 text-xl font-semibold text-white">
+        <p className="mt-20 mb-8 text-xl font-semibold text-white">
           Choose a game mode
         </p>
         <div className="grid max-w-screen-lg grid-cols-2 gap-8">
