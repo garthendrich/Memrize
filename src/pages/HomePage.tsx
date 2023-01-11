@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import {
   classicNumbersImageSrc,
   classicWordsImageSrc,
@@ -21,7 +23,12 @@ export function HomePage() {
           Choose a game mode
         </p>
         <div className="grid max-w-screen-lg grid-cols-2 gap-8">
-          <GameModeItem label="Classic words" imageSrc={classicWordsImageSrc} />
+          <Link to="classic-words">
+            <GameModeItem
+              label="Classic words"
+              imageSrc={classicWordsImageSrc}
+            />
+          </Link>
           <GameModeItem label="Flash words" imageSrc={flashWordsImageSrc} />
           <GameModeItem
             label="Classic numbers"
