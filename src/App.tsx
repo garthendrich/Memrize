@@ -6,16 +6,19 @@ import {
 } from "react-router-dom";
 
 import { HomePage } from "@/pages";
-import { GameModePage } from "./pages/GameModePage";
+import { GameModePage } from "@/pages/GameModePage";
+import { gameModes } from "@/shared";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<HomePage />} />
-      <Route
-        path="/classic-words"
-        element={<GameModePage gameMode="classic words" />}
-      />
+      {gameModes.map((gameMode) => (
+        <Route
+          path={gameMode.replace(" ", "-")}
+          element={<GameModePage gameMode={gameMode} />}
+        />
+      ))}
     </>
   )
 );

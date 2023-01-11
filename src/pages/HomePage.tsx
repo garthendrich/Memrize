@@ -1,13 +1,9 @@
 import { Link } from "react-router-dom";
 
-import {
-  classicNumbersImageSrc,
-  classicWordsImageSrc,
-  flashNumbersImageSrc,
-  flashWordsImageSrc,
-} from "@/assets/images";
 import { MemrizeLogo } from "@/assets/svgs";
 import { GameModeItem, Header, MainPanel } from "@/components";
+import { gameModeInfo, gameModes } from "@/shared";
+import { capitalize } from "@/utils/capitalize";
 
 export function HomePage() {
   return (
@@ -23,18 +19,14 @@ export function HomePage() {
           Choose a game mode
         </p>
         <div className="grid max-w-screen-lg grid-cols-2 gap-8">
-          <Link to="classic-words">
-            <GameModeItem
-              label="Classic words"
-              imageSrc={classicWordsImageSrc}
-            />
-          </Link>
-          <GameModeItem label="Flash words" imageSrc={flashWordsImageSrc} />
-          <GameModeItem
-            label="Classic numbers"
-            imageSrc={classicNumbersImageSrc}
-          />
-          <GameModeItem label="Flash numbers" imageSrc={flashNumbersImageSrc} />
+          {gameModes.map((gameMode) => (
+            <Link to={gameMode.replace(" ", "-")}>
+              <GameModeItem
+                label={capitalize(gameMode)}
+                imageSrc={gameModeInfo[gameMode].imageSource}
+              />
+            </Link>
+          ))}
         </div>
       </MainPanel>
     </>
