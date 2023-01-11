@@ -16,8 +16,8 @@ export function HomePage() {
           <p className="text-2xl text-white">Memrize</p>
         </Header.Segment>
       </Header>
-      <MainPanel>
-        <p className="mt-20 mb-8 text-xl font-semibold text-white">
+      <MainPanel className="mt-4 mb-8">
+        <p className="mb-8 text-xl font-semibold text-white">
           Choose a game mode
         </p>
         <div className="grid max-w-screen-lg grid-cols-2 gap-8">

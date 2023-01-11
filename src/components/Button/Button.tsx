@@ -1,9 +1,14 @@
 export interface ButtonProps {
+  className?: string;
   variant?: "primary" | "secondary";
   children: String | JSX.Element;
 }
 
-export function Button({ variant = "primary", children }: ButtonProps) {
+export function Button({
+  className = "",
+  variant = "primary",
+  children,
+}: ButtonProps) {
   const stylesBasedOnChildren =
     typeof children === "string" ? "px-4 py-2 rounded" : "p-2 rounded-full";
 
@@ -15,7 +20,7 @@ export function Button({ variant = "primary", children }: ButtonProps) {
   return (
     <button
       type="button"
-      className={`shadow-button active:translate-y-1 active:shadow-none ${stylesBasedOnChildren} ${buttonVariantStyles[variant]}`}
+      className={`shadow-button active:translate-y-1 active:shadow-none ${stylesBasedOnChildren} ${buttonVariantStyles[variant]} ${className}`}
     >
       {children}
     </button>
@@ -23,5 +28,6 @@ export function Button({ variant = "primary", children }: ButtonProps) {
 }
 
 Button.defaultProps = {
+  className: "",
   variant: "primary",
 };
