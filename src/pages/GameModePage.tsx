@@ -15,8 +15,8 @@ export function GameModePage({ gameMode }: GameModePageProps) {
       <Header isFixed>
         <Header.Segment justify="justify-start">
           <Link to="/">
-            <Button variant="secondary">
-              <ArrowLeftIcon className="h-6 w-6" />
+            <Button variant="outlined">
+              <ArrowLeftIcon className="h-6 w-6 fill-white" />
             </Button>
           </Link>
         </Header.Segment>

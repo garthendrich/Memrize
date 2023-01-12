@@ -19,7 +19,7 @@ module.exports = {
         stroke: "#121629",
       },
       boxShadow: {
-        button: "0 4px #64748B",
+        button: "0 4px",
       },
     },
   },
