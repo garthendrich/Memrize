@@ -25,6 +25,7 @@ export interface ButtonProps {
   className?: string;
   color?: ButtonColors;
   variant?: ButtonVariants;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: String | JSX.Element;
 }
 
@@ -32,6 +33,7 @@ export function Button({
   className = "",
   color = "secondary",
   variant = "regular",
+  onClick,
   children,
 }: ButtonProps) {
   const stylesBasedOnChildren =
@@ -56,6 +58,7 @@ export function Button({
         color,
         variant
       )} ${className}`}
+      onClick={onClick}
     >
       {children}
     </button>
@@ -66,4 +69,5 @@ Button.defaultProps = {
   className: "",
   color: "secondary",
   variant: "regular",
+  onClick: null,
 };
