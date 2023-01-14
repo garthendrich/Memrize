@@ -5,8 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { HomePage } from "@/pages";
-import { GameModePage } from "@/pages/GameModePage";
+import { GameModePage, HomePage } from "@/pages";
 import { gameModes } from "@/shared";
 
 const router = createBrowserRouter(
