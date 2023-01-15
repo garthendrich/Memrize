@@ -1,11 +1,16 @@
 export interface HeaderProps {
   children: JSX.Element | JSX.Element[];
+  className?: string;
   isFixed?: boolean;
 }
 
-function Header({ children, isFixed }: HeaderProps) {
+function Header({ children, className = "", isFixed }: HeaderProps) {
   return (
-    <div className={`${isFixed && "fixed top-0 left-0"} flex h-20 w-full px-8`}>
+    <div
+      className={`${
+        isFixed ? "fixed top-0 left-0" : ""
+      } flex h-20 w-full px-8 ${className}`}
+    >
       {children}
     </div>
   );
@@ -13,25 +18,23 @@ function Header({ children, isFixed }: HeaderProps) {
 
 interface HeaderSegmentProps {
   children?: JSX.Element | JSX.Element[];
-  justify?: "justify-start" | "justify-center" | "justify-end";
+  className?: string;
 }
 
-function HeaderSegment({
-  children,
-  justify = "justify-start",
-}: HeaderSegmentProps) {
+function HeaderSegment({ children, className = "" }: HeaderSegmentProps) {
   return (
-    <div className={`flex flex-1 items-center ${justify}`}>{children}</div>
+    <div className={`flex flex-1 items-center ${className}`}>{children}</div>
   );
 }
 
 Header.defaultProps = {
   isFixed: false,
+  className: "",
 };
 
 HeaderSegment.defaultProps = {
-  justify: "justify-start",
   children: null,
+  className: "",
 };
 
 Header.Segment = HeaderSegment;

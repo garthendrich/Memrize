@@ -9,7 +9,7 @@ export function HomePage() {
   return (
     <>
       <Header>
-        <Header.Segment justify="justify-center">
+        <Header.Segment className="justify-center">
           <MemrizeLogo className="mr-4 h-8 w-8" />
           <p className="text-2xl text-white">Memrize</p>
         </Header.Segment>
