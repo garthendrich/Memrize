@@ -1,7 +1,7 @@
 import { MemrizeLogo } from "@/assets/svgs";
 import { Button, Header, MainPanel } from "@/components";
 import { GameMode, gameModeInfo } from "@/shared";
-import { capitalize } from "@/utils/capitalize";
+import { capitalize } from "@/utils";
 
 export interface GameModePageProps {
   gameMode: GameMode;
@@ -23,14 +23,11 @@ export function GameModePage({ gameMode }: GameModePageProps) {
             src={gameModeInfo[gameMode].imageSource}
             alt={gameMode}
           />
-          <p className="text-3xl font-semibold text-white">
-            {capitalize(gameMode)}
-          </p>
-          <div className="flex flex-col items-center gap-4">
-            <Button className="w-48">Start</Button>
-            <p className="cursor-pointer select-none text-white">
-              Change settings
+          <div className="flex flex-col items-center gap-8">
+            <p className="text-3xl font-semibold text-white">
+              {capitalize(gameMode)}
             </p>
+            <Button className="w-full">Start</Button>
           </div>
         </div>
       </MainPanel>

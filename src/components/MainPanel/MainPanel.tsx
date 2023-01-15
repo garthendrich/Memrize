@@ -5,9 +5,7 @@ export interface MainPanelProps {
 
 export function MainPanel({ className = "", children }: MainPanelProps) {
   return (
-    <div className={`${className} flex flex-col items-center px-6`}>
-      {children}
-    </div>
+    <div className={`${className} flex flex-col items-center`}>{children}</div>
   );
 }
 
