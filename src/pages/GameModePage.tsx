@@ -13,7 +13,7 @@ export function GameModePage({ gameMode }: GameModePageProps) {
       <Header isFixed>
         <Header.Segment className="justify-center">
           <MemrizeLogo className="mr-4 h-8 w-8" />
-          <p className="text-2xl text-white">Memrize</p>
+          <p className="text-2xl">Memrize</p>
         </Header.Segment>
       </Header>
       <MainPanel>
@@ -24,9 +24,7 @@ export function GameModePage({ gameMode }: GameModePageProps) {
             alt={gameMode}
           />
           <div className="flex flex-col items-center gap-8">
-            <p className="text-3xl font-semibold text-white">
-              {capitalize(gameMode)}
-            </p>
+            <p className="text-3xl font-semibold">{capitalize(gameMode)}</p>
             <Button className="w-full">Start</Button>
           </div>
         </div>

@@ -9,7 +9,7 @@ function Header({ children, className = "", isFixed }: HeaderProps) {
     <div
       className={`${
         isFixed ? "fixed top-0 left-0" : ""
-      } flex h-20 w-full px-8 ${className}`}
+      } flex h-20 w-full px-8 text-white ${className}`}
     >
       {children}
     </div>

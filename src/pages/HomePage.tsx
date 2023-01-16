@@ -11,7 +11,7 @@ export function HomePage() {
       <Header>
         <Header.Segment className="justify-center">
           <MemrizeLogo className="mr-4 h-8 w-8" />
-          <p className="text-2xl text-white">Memrize</p>
+          <p className="text-2xl">Memrize</p>
         </Header.Segment>
       </Header>
       <MainPanel className="mt-4 mb-8">
