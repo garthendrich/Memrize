@@ -11,7 +11,7 @@ export function GameModeItem({ label, imageSrc }: GameModeItemProps) {
       <div className="overflow-hidden rounded-lg">
         <Image src={imageSrc} alt={`${label} display`} />
       </div>
-      <p className="text-xl font-semibold">{label}</p>
+      <p className="text-xl font-semibold text-stroke">{label}</p>
     </div>
   );
 }

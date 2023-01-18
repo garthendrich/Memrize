@@ -3,7 +3,7 @@ type ButtonVariants = "regular" | "outlined";
 
 const getCustomStyles = (color: ButtonColors, variant: ButtonVariants) => {
   if (variant === "regular" && color === "primary") {
-    return "text-white hover:bg-slate-900";
+    return "hover:bg-slate-900";
   }
 
   if (variant === "regular" && color === "secondary") {
@@ -15,7 +15,7 @@ const getCustomStyles = (color: ButtonColors, variant: ButtonVariants) => {
   }
 
   if (variant === "outlined" && color === "secondary") {
-    return "border-white text-white hover:bg-slate-900";
+    return "border-white hover:bg-slate-900";
   }
 
   return "";
