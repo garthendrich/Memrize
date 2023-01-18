@@ -52,7 +52,7 @@ export function Button({
   return (
     <button
       type="button"
-      className={`shadow-button shadow-slate-500 active:translate-y-1 active:shadow-none ${stylesBasedOnChildren} ${
+      className={`min-w-fit shadow-button shadow-slate-500 active:translate-y-1 active:shadow-none ${stylesBasedOnChildren} ${
         colorStyles[color]
       } ${variantStyles[variant]} ${getCustomStyles(
         color,

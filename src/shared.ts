@@ -24,3 +24,12 @@ export const gameModeInfo: GameModesInfo = {
   "classic numbers": { imageSource: classicNumbersImageSrc },
   "flash numbers": { imageSource: flashNumbersImageSrc },
 };
+
+export const gamePhases = [
+  "focus phase",
+  "memorization phase",
+  "recall phase",
+  "end phase",
+] as const;
+
+export type GamePhase = typeof gamePhases[number];

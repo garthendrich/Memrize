@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { MemrizeLogo } from "@/assets/svgs";
 import { Button, Header, MainPanel } from "@/components";
 import { GameMode, gameModeInfo } from "@/shared";
@@ -25,7 +27,9 @@ export function GameModePage({ gameMode }: GameModePageProps) {
           />
           <div className="flex flex-col items-center gap-8">
             <p className="text-3xl font-semibold">{capitalize(gameMode)}</p>
-            <Button className="w-full">Start</Button>
+            <Link to={`/game/${gameMode.replace(" ", "-")}`} className="w-full">
+              <Button className="w-full">Start</Button>
+            </Link>
           </div>
         </div>
       </MainPanel>

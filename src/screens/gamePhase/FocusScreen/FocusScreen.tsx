@@ -7,11 +7,19 @@ import { capitalize } from "@/utils";
 export interface FocusScreenProps {
   gameMode: GameMode;
   seconds: number;
-  onFinish: () => void;
+  onPhaseEnd: () => void;
 }
 
-export function FocusScreen({ gameMode, seconds, onFinish }: FocusScreenProps) {
-  const { timer } = useTimer({ seconds, onFinish, willAutoStart: true });
+export function FocusScreen({
+  gameMode,
+  seconds,
+  onPhaseEnd: endPhase,
+}: FocusScreenProps) {
+  const { timer } = useTimer({
+    seconds,
+    onFinish: endPhase,
+    willAutoStart: true,
+  });
 
   return (
     <>
