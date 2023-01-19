@@ -1,1 +1,2 @@
-export * from "./gamePhase/FocusScreen";
+export * from "./FocusScreen";
+export * from "./MemorizationScreen";

@@ -1,7 +1,31 @@
 import { useState } from "react";
 
-import { FocusScreen } from "@/screens";
-import { GameMode, GamePhase, gamePhases } from "@/shared";
+import { FocusScreen, MemorizationScreen } from "@/screens";
+import { GameMode, GamePhase, gamePhases, ItemList } from "@/shared";
+
+// temp
+const list: ItemList = [
+  "benzenoid",
+  "prolusory",
+  "craft",
+  "glass",
+  "indoor",
+  "parade",
+  "dog",
+  "teacher",
+  "tip",
+  "inappropriate",
+  "idea",
+  "economist",
+  "resort",
+  "gun",
+  "spill",
+  "ear",
+  "introduction",
+  "museum",
+  "combine",
+  "disgrace",
+];
 
 export interface GamePageProps {
   gameMode: GameMode;
@@ -20,6 +44,12 @@ export function GamePage({ gameMode }: GamePageProps) {
         />
       );
     case "memorization phase":
+      return (
+        <MemorizationScreen
+          list={list}
+          onPhaseEnd={() => setGamePhase("recall phase")}
+        />
+      );
     case "recall phase":
     case "end phase":
     default:
