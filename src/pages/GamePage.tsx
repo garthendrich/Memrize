@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import { FocusScreen, MemorizationScreen } from "@/screens";
-import { GameMode, GamePhase, gamePhases, ItemList } from "@/shared";
+import { GameMode, GamePhase, gamePhases, Item } from "@/shared";
 
 // temp
-const list: ItemList = [
+const items: Item[] = [
   "benzenoid",
   "prolusory",
   "craft",
@@ -46,7 +46,7 @@ export function GamePage({ gameMode }: GamePageProps) {
     case "memorization phase":
       return (
         <MemorizationScreen
-          list={list}
+          items={items}
           onPhaseEnd={() => setGamePhase("recall phase")}
         />
       );

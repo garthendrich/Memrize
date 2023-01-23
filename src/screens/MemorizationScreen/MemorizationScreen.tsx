@@ -1,14 +1,14 @@
 import { Button, GameHeader } from "@/components";
 import { useTimer } from "@/hooks";
-import { ItemList } from "@/shared";
+import { Item } from "@/shared";
 
 export interface MemorizationScreenProps {
-  list: ItemList;
+  items: Item[];
   onPhaseEnd: () => void;
 }
 
 export function MemorizationScreen({
-  list,
+  items,
   onPhaseEnd: endPhase,
 }: MemorizationScreenProps) {
   const { timer } = useTimer({
@@ -16,7 +16,7 @@ export function MemorizationScreen({
     onFinish: endPhase,
     willAutoStart: true,
   });
-  console.log(list);
+  console.log(items);
 
   return (
     <GameHeader

@@ -35,4 +35,3 @@ export const gamePhases = [
 export type GamePhase = typeof gamePhases[number];
 
 export type Item = string | number;
-export type ItemList = Item[];
