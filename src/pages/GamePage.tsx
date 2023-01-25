@@ -35,7 +35,7 @@ export function GamePage({ gameMode }: GamePageProps) {
   const [gamePhase, setGamePhase] = useState<GamePhase>(gamePhases[0]);
 
   switch (gamePhase) {
-    case "focus phase":
+    case "memorization countdown":
       return (
         <FocusScreen
           gameMode={gameMode}
@@ -47,11 +47,12 @@ export function GamePage({ gameMode }: GamePageProps) {
       return (
         <MemorizationScreen
           items={items}
-          onPhaseEnd={() => setGamePhase("recall phase")}
+          onPhaseEnd={() => setGamePhase("recall countdown")}
         />
       );
+    case "recall countdown":
     case "recall phase":
-    case "end phase":
+    case "result screen":
     default:
   }
 

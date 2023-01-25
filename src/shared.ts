@@ -26,10 +26,11 @@ export const gameModeInfo: GameModesInfo = {
 };
 
 export const gamePhases = [
-  "focus phase",
+  "memorization countdown",
   "memorization phase",
+  "recall countdown",
   "recall phase",
-  "end phase",
+  "result screen",
 ] as const;
 
 export type GamePhase = typeof gamePhases[number];
