@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export interface TimerProps {
+export interface TimerOptions {
   seconds: number;
   onFinish: () => void;
   willAutoStart?: boolean;
@@ -10,14 +10,18 @@ export function useTimer({
   seconds,
   onFinish: finish,
   willAutoStart = false,
-}: TimerProps) {
+}: TimerOptions) {
   const [timer, setTimer] = useState(willAutoStart ? seconds : -1);
 
   useEffect(() => {
+    if (timer < 0) return undefined;
     if (timer === 0) finish();
-    if (timer <= 0) return;
 
-    setTimeout(() => setTimer(timer - 1), 1000);
+    const timeout = setTimeout(() => setTimer(timer - 1), 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [timer]);
 
   return { timer: timer <= 0 ? 0 : timer, start: () => setTimer(seconds) };
