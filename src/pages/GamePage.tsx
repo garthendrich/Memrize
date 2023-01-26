@@ -39,6 +39,7 @@ export function GamePage({ gameMode }: GamePageProps) {
       return (
         <FocusScreen
           gameMode={gameMode}
+          text="Memorization phase will start in"
           seconds={5}
           onPhaseEnd={() => setGamePhase("memorization phase")}
         />
@@ -51,6 +52,14 @@ export function GamePage({ gameMode }: GamePageProps) {
         />
       );
     case "recall countdown":
+      return (
+        <FocusScreen
+          gameMode={gameMode}
+          text="Recall phase will start in"
+          seconds={5}
+          onPhaseEnd={() => setGamePhase("recall phase")}
+        />
+      );
     case "recall phase":
     case "result screen":
     default:

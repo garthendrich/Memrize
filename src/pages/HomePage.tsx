@@ -18,7 +18,7 @@ export function HomePage() {
         <p className="mb-8 text-xl font-semibold">Choose a game mode</p>
         <div className="grid max-w-screen-lg grid-cols-2 gap-8">
           {gameModes.map((gameMode) => (
-            <Link to={gameMode.replace(" ", "-")}>
+            <Link to={gameMode.replace(" ", "-")} key={gameMode}>
               <GameModeItem
                 label={capitalize(gameMode)}
                 imageSrc={gameModeInfo[gameMode].imageSource}
