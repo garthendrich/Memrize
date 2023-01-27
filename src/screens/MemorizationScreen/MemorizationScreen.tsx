@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Button, GameHeader, ItemList, Modal } from "@/components";
-import { useTimer } from "@/hooks";
+import { useListNodeFocuser, useTimer } from "@/hooks";
 import { Item } from "@/shared";
 
 export interface MemorizationScreenProps {
@@ -21,7 +21,13 @@ export function MemorizationScreen({
 
   const [isRecallModalShown, setIsRecallModalShown] = useState(false);
 
-  const itemNodeBuilder = (item: Item) => <p>{item}</p>;
+  const { setNodesRef } = useListNodeFocuser();
+
+  const itemNodeBuilder = (item: Item, nodeIndex: number) => (
+    <p key={item} ref={(p) => setNodesRef(nodeIndex, p!)}>
+      {item}
+    </p>
+  );
 
   return (
     <>

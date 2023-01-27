@@ -3,7 +3,7 @@ import { Item } from "@/shared";
 
 export interface ItemListProps {
   items: Item[];
-  itemNodeBuilder: (item: Item) => JSX.Element;
+  itemNodeBuilder: (item: Item, itemIndex: number) => JSX.Element;
 }
 
 export function ItemList({ items, itemNodeBuilder }: ItemListProps) {
@@ -11,7 +11,7 @@ export function ItemList({ items, itemNodeBuilder }: ItemListProps) {
     <MainPanel>
       <div className="h-[50vh]" />
       <div className="flex w-full flex-col items-center gap-8 text-2xl">
-        {items.map((item) => itemNodeBuilder(item))}
+        {items.map((item, itemIndex) => itemNodeBuilder(item, itemIndex))}
       </div>
       <div className="fixed top-0 left-0 -z-10 flex h-full w-full items-center justify-center ">
         <div className="h-16 w-full bg-stroke" />
