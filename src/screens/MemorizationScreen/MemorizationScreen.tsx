@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Button, GameHeader, Modal } from "@/components";
+import { Button, GameHeader, ItemList, Modal } from "@/components";
 import { useTimer } from "@/hooks";
 import { Item } from "@/shared";
 
@@ -21,7 +21,7 @@ export function MemorizationScreen({
 
   const [isRecallModalShown, setIsRecallModalShown] = useState(false);
 
-  console.log(items);
+  const itemNodeBuilder = (item: Item) => <p>{item}</p>;
 
   return (
     <>
@@ -34,6 +34,8 @@ export function MemorizationScreen({
           </Button>
         }
       />
+
+      <ItemList items={items} itemNodeBuilder={itemNodeBuilder} />
 
       <Modal isShown={isRecallModalShown}>
         <Modal.Body>

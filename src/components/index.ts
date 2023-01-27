@@ -3,6 +3,7 @@ export * from "./GameHeader";
 export * from "./GameModeItem";
 export * from "./Header";
 export * from "./Image";
+export * from "./ItemList";
 export * from "./MainPanel";
 export * from "./Modal";
 export * from "./NumberInput";
