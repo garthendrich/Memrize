@@ -8,12 +8,10 @@ export function useListNodeFocuser() {
     nodeIndex: number,
     scrollOptions: ScrollOptions = { behavior: "smooth" }
   ) => {
-    setTimeout(() => {
-      const node = nodesRef.current[nodeIndex];
-      const nodeMiddlePos = node.offsetTop + node.clientHeight / 2;
-      const screenMiddlePos = window.innerHeight / 2;
-      window.scroll({ top: nodeMiddlePos - screenMiddlePos, ...scrollOptions });
-    }, 20);
+    const node = nodesRef.current[nodeIndex];
+    const nodeMiddlePos = node.offsetTop + node.clientHeight / 2;
+    const screenMiddlePos = window.innerHeight / 2;
+    window.scroll({ top: nodeMiddlePos - screenMiddlePos, ...scrollOptions });
   };
 
   useEffect(() => focusAt(0, { behavior: "auto" }), []);
@@ -62,6 +60,54 @@ export function useListNodeFocuser() {
     return () => {
       document.body.removeEventListener("wheel", handleWheelNavigation);
       window.removeEventListener("keydown", handleKeyNavigation);
+    };
+  }, []);
+
+  useEffect(() => {
+    const getDistanceToScreenMiddle = (node: HTMLElement) => {
+      const screenMiddlePos =
+        document.documentElement.scrollTop + window.innerHeight / 2;
+
+      const nodeMiddlePos = node.offsetTop + node.clientHeight / 2;
+      const nodeDistance = nodeMiddlePos - screenMiddlePos;
+      return nodeDistance;
+    };
+
+    const focusNearest = () => {
+      for (
+        let nodeIndex = 0;
+        nodeIndex < nodesRef.current.length;
+        nodeIndex += 1
+      ) {
+        const currentNode = nodesRef.current[nodeIndex];
+        const nodeDistance = getDistanceToScreenMiddle(currentNode);
+
+        if (nodeDistance > 0 || nodeIndex === nodesRef.current.length - 1) {
+          const previousNode = nodesRef.current[Math.max(nodeIndex - 1, 0)];
+          const previousNodeDistance = getDistanceToScreenMiddle(previousNode);
+
+          if (Math.abs(previousNodeDistance) < Math.abs(nodeDistance)) {
+            setFocusedNodeIndex(nodeIndex - 1);
+            focusAt(nodeIndex - 1);
+          } else {
+            setFocusedNodeIndex(nodeIndex);
+            focusAt(nodeIndex);
+          }
+
+          break;
+        }
+      }
+    };
+
+    const handleMouseUpOnScrollBar = (event: MouseEvent) => {
+      const clickedElement = event.target as HTMLElement;
+      if (clickedElement.tagName === "HTML") setTimeout(focusNearest, 20);
+    };
+
+    window.addEventListener("mouseup", handleMouseUpOnScrollBar);
+
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUpOnScrollBar);
     };
   }, []);
 
