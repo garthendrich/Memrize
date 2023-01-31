@@ -31,22 +31,42 @@ export function useListNodeFocuser() {
       setFocusedNodeIndex((previousValue) => Math.max(previousValue - 1, 0));
     };
 
-    const handleWheel = (event: WheelEvent) => {
+    const handleWheelNavigation = (event: WheelEvent) => {
       event.preventDefault();
 
       if (event.deltaY > 0) goToNextFocusedNode();
       else goToPreviousFocusedNode();
     };
 
-    document.body.addEventListener("wheel", handleWheel, { passive: false });
+    const handleKeyNavigation = (event: KeyboardEvent) => {
+      if (!["ArrowDown", "ArrowUp", "Enter", "Tab"].includes(event.code))
+        return;
+
+      event.preventDefault();
+
+      if (["Enter", "Tab"].includes(event.code)) {
+        if (event.shiftKey) goToPreviousFocusedNode();
+        else goToNextFocusedNode();
+      } else if (event.code === "ArrowDown") {
+        goToNextFocusedNode();
+      } else if (event.code === "ArrowUp") {
+        goToPreviousFocusedNode();
+      }
+    };
+
+    document.body.addEventListener("wheel", handleWheelNavigation, {
+      passive: false,
+    });
+    window.addEventListener("keydown", handleKeyNavigation);
 
     return () => {
-      document.body.removeEventListener("wheel", handleWheel);
+      document.body.removeEventListener("wheel", handleWheelNavigation);
+      window.removeEventListener("keydown", handleKeyNavigation);
     };
   }, []);
 
   const setNodesRef = (nodeIndex: number, node: HTMLElement) => {
-    nodesRef.current[nodeIndex] = node!;
+    nodesRef.current[nodeIndex] = node;
   };
 
   return { setNodesRef };
