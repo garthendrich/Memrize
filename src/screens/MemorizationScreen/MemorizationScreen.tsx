@@ -2,10 +2,9 @@ import { useState } from "react";
 
 import { Button, GameHeader, ItemList, Modal } from "@/components";
 import { useListNodeFocuser, useTimer } from "@/hooks";
-import { Item } from "@/shared";
 
 export interface MemorizationScreenProps {
-  items: Item[];
+  items: string[];
   onPhaseEnd: () => void;
 }
 
@@ -14,16 +13,16 @@ export function MemorizationScreen({
   onPhaseEnd: endPhase,
 }: MemorizationScreenProps) {
   const { timer } = useTimer({
+    willAutoStart: true,
     seconds: 300,
     onFinish: endPhase,
-    willAutoStart: true,
   });
 
   const [isRecallModalShown, setIsRecallModalShown] = useState(false);
 
   const { setNodesRef } = useListNodeFocuser();
 
-  const itemNodeBuilder = (item: Item, nodeIndex: number) => (
+  const itemNodeBuilder = (item: string, nodeIndex: number) => (
     <p key={item} ref={(p) => setNodesRef(nodeIndex, p!)}>
       {item}
     </p>

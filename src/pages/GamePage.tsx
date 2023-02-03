@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { FocusScreen, MemorizationScreen } from "@/screens";
-import { GameMode, GamePhase, gamePhases, Item } from "@/shared";
+import { FocusScreen, MemorizationScreen, RecallScreen } from "@/screens";
+import { GameMode, GamePhase, gamePhases } from "@/shared";
 
 // temp
-const items: Item[] = [
+const items: string[] = [
   "benzenoid",
   "prolusory",
   "craft",
@@ -34,6 +34,10 @@ export interface GamePageProps {
 export function GamePage({ gameMode }: GamePageProps) {
   const [gamePhase, setGamePhase] = useState<GamePhase>(gamePhases[0]);
 
+  const [answers, setAnswers] = useState<string[]>(
+    Array(items.length).fill("")
+  );
+
   switch (gamePhase) {
     case "memorization countdown":
       return (
@@ -61,9 +65,15 @@ export function GamePage({ gameMode }: GamePageProps) {
         />
       );
     case "recall phase":
+      return (
+        <RecallScreen
+          answers={answers}
+          setAnswers={setAnswers}
+          onPhaseEnd={() => setGamePhase("result screen")}
+        />
+      );
     case "result screen":
     default:
+      return <div />;
   }
-
-  return <div />;
 }

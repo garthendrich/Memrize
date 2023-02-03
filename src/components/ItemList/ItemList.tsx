@@ -1,9 +1,8 @@
 import { MainPanel } from "@/components/MainPanel";
-import { Item } from "@/shared";
 
 export interface ItemListProps {
-  items: Item[];
-  itemNodeBuilder: (item: Item, itemIndex: number) => JSX.Element;
+  items: string[];
+  itemNodeBuilder: (item: string, itemIndex: number) => JSX.Element;
 }
 
 export function ItemList({ items, itemNodeBuilder }: ItemListProps) {
