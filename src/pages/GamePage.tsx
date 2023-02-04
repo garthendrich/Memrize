@@ -61,6 +61,7 @@ export function GamePage({ gameMode }: GamePageProps) {
     case "memorization phase":
       return (
         <MemorizationScreen
+          gameMode={gameMode}
           items={items}
           onPhaseEnd={() => setGamePhase("recall countdown")}
         />
@@ -92,6 +93,6 @@ export function GamePage({ gameMode }: GamePageProps) {
         />
       );
     default:
-      return <div />;
+      return null;
   }
 }

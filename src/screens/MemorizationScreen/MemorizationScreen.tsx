@@ -1,14 +1,17 @@
 import { useState } from "react";
 
-import { Button, GameHeader, ItemList, Modal } from "@/components";
+import { Button, GameHeader, ItemFlasher, ItemList, Modal } from "@/components";
 import { useListNodeFocuser, useTimer } from "@/hooks";
+import { GameMode } from "@/shared";
 
 export interface MemorizationScreenProps {
+  gameMode: GameMode;
   items: string[];
   onPhaseEnd: () => void;
 }
 
 export function MemorizationScreen({
+  gameMode,
   items,
   onPhaseEnd: endPhase,
 }: MemorizationScreenProps) {
@@ -19,18 +22,35 @@ export function MemorizationScreen({
 
   const [isRecallModalShown, setIsRecallModalShown] = useState(false);
 
-  const { setNodesRef } = useListNodeFocuser();
+  const renderBody = () => {
+    switch (gameMode) {
+      case "classic words":
+      case "classic numbers":
+        // eslint-disable-next-line no-case-declarations
+        const { setNodesRef } = useListNodeFocuser();
 
-  const itemNodeBuilder = (item: string, nodeIndex: number) => (
-    <p key={item} ref={(p) => setNodesRef(nodeIndex, p!)}>
-      {item}
-    </p>
-  );
+        // eslint-disable-next-line no-case-declarations
+        const itemNodeBuilder = (item: string, nodeIndex: number) => (
+          <p ref={(p) => setNodesRef(nodeIndex, p!)}>{item}</p>
+        );
+
+        return <ItemList items={items} itemNodeBuilder={itemNodeBuilder} />;
+      case "flash words":
+      case "flash numbers":
+        return <ItemFlasher items={items} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
       <GameHeader
-        timer={timer}
+        timer={
+          ["classic words", "classic numbers"].includes(gameMode)
+            ? timer
+            : undefined
+        }
         gamePhase="memorization phase"
         nextPhaseButton={
           <Button onClick={() => setIsRecallModalShown(true)}>
@@ -39,7 +59,7 @@ export function MemorizationScreen({
         }
       />
 
-      <ItemList items={items} itemNodeBuilder={itemNodeBuilder} />
+      {renderBody()}
 
       <Modal isShown={isRecallModalShown}>
         <Modal.Body>

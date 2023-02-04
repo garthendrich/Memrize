@@ -9,7 +9,7 @@ import { GamePhase } from "@/shared";
 import { capitalize, displayTimer } from "@/utils";
 
 export interface GameHeaderProps {
-  timer: number;
+  timer?: number;
   gamePhase: GamePhase;
   nextPhaseButton: JSX.Element;
 }
@@ -31,7 +31,9 @@ export function GameHeader({
           <p className="ml-4 text-lg font-semibold">{capitalize(gamePhase)}</p>
         </Header.Segment>
         <Header.Segment className="justify-end gap-4">
-          <p className="text-xl font-semibold">{displayTimer(timer)}</p>
+          <p className="text-xl font-semibold">
+            {timer && displayTimer(timer)}
+          </p>
           {nextPhaseButton}
         </Header.Segment>
         <div className="absolute bottom-0 left-0">
@@ -64,3 +66,7 @@ export function GameHeader({
     </>
   );
 }
+
+GameHeader.defaultProps = {
+  timer: undefined,
+};
