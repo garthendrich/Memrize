@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-import { FocusScreen, MemorizationScreen, RecallScreen } from "@/screens";
+import {
+  FocusScreen,
+  MemorizationScreen,
+  RecallScreen,
+  ResultScreen,
+} from "@/screens";
 import { GameMode, GamePhase, gamePhases } from "@/shared";
 
 // temp
@@ -38,6 +43,11 @@ export function GamePage({ gameMode }: GamePageProps) {
     Array(items.length).fill("")
   );
 
+  const restartGame = () => {
+    setGamePhase("memorization countdown");
+    setAnswers(Array(items.length).fill(""));
+  };
+
   switch (gamePhase) {
     case "memorization countdown":
       return (
@@ -73,6 +83,14 @@ export function GamePage({ gameMode }: GamePageProps) {
         />
       );
     case "result screen":
+      return (
+        <ResultScreen
+          gameMode={gameMode}
+          items={items}
+          answers={answers}
+          restartGame={restartGame}
+        />
+      );
     default:
       return <div />;
   }
