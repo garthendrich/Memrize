@@ -12,6 +12,8 @@ export function useListNodeFocuser() {
     const nodeMiddlePos = node.offsetTop + node.clientHeight / 2;
     const screenMiddlePos = window.innerHeight / 2;
     window.scroll({ top: nodeMiddlePos - screenMiddlePos, ...scrollOptions });
+
+    node.focus();
   };
 
   useEffect(() => focusAt(0, { behavior: "auto" }), []);
