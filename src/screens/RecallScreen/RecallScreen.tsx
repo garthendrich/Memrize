@@ -15,7 +15,6 @@ export function RecallScreen({
   onPhaseEnd: endPhase,
 }: RecallScreenProps) {
   const { timer } = useTimer({
-    willAutoStart: true,
     seconds: 600,
     onFinish: endPhase,
   });

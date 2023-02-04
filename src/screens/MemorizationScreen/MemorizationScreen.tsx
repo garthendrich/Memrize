@@ -13,7 +13,6 @@ export function MemorizationScreen({
   onPhaseEnd: endPhase,
 }: MemorizationScreenProps) {
   const { timer } = useTimer({
-    willAutoStart: true,
     seconds: 300,
     onFinish: endPhase,
   });

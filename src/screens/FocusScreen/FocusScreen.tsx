@@ -18,7 +18,6 @@ export function FocusScreen({
   onPhaseEnd: endPhase,
 }: FocusScreenProps) {
   const { timer } = useTimer({
-    willAutoStart: true,
     seconds,
     onFinish: endPhase,
   });
