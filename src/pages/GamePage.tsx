@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { generateItems } from "@/api";
 import {
   FocusScreen,
   MemorizationScreen,
@@ -8,30 +9,6 @@ import {
 } from "@/screens";
 import { GameMode, GamePhase, gamePhases } from "@/shared";
 
-// temp
-const items: string[] = [
-  "benzenoid",
-  "prolusory",
-  "craft",
-  "glass",
-  "indoor",
-  "parade",
-  "dog",
-  "teacher",
-  "tip",
-  "inappropriate",
-  "idea",
-  "economist",
-  "resort",
-  "gun",
-  "spill",
-  "ear",
-  "introduction",
-  "museum",
-  "combine",
-  "disgrace",
-];
-
 export interface GamePageProps {
   gameMode: GameMode;
 }
@@ -39,12 +16,14 @@ export interface GamePageProps {
 export function GamePage({ gameMode }: GamePageProps) {
   const [gamePhase, setGamePhase] = useState<GamePhase>(gamePhases[0]);
 
+  const [items, setItems] = useState(generateItems(gameMode));
   const [answers, setAnswers] = useState<string[]>(
     Array(items.length).fill("")
   );
 
   const restartGame = () => {
     setGamePhase("memorization countdown");
+    setItems(generateItems(gameMode));
     setAnswers(Array(items.length).fill(""));
   };
 
