@@ -3,15 +3,17 @@ import { useTimer } from "@/hooks";
 
 export interface ItemFlasherProps {
   items: string[];
+  onEnd: () => void;
 }
 
 const flashDuration = 2;
 
-export function ItemFlasher({ items }: ItemFlasherProps) {
+export function ItemFlasher({ items, onEnd: end }: ItemFlasherProps) {
   const timerDuration = items.length * flashDuration;
 
   const { timer } = useTimer({
     seconds: timerDuration,
+    onFinish: end,
   });
 
   const itemIndex = Math.floor((timerDuration - timer) / flashDuration);

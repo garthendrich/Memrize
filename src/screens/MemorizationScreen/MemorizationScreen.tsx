@@ -17,7 +17,9 @@ export function MemorizationScreen({
 }: MemorizationScreenProps) {
   const { timer } = useTimer({
     seconds: 300,
-    onFinish: endPhase,
+    onFinish: ["classic words", "classic numbers"].includes(gameMode)
+      ? endPhase
+      : undefined,
   });
 
   const [isRecallModalShown, setIsRecallModalShown] = useState(false);
@@ -37,7 +39,7 @@ export function MemorizationScreen({
         return <ItemList items={items} itemNodeBuilder={itemNodeBuilder} />;
       case "flash words":
       case "flash numbers":
-        return <ItemFlasher items={items} />;
+        return <ItemFlasher items={items} onEnd={endPhase} />;
       default:
         return null;
     }
