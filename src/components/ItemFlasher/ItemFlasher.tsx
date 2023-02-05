@@ -14,7 +14,7 @@ export function ItemFlasher({ items }: ItemFlasherProps) {
     seconds: timerDuration,
   });
 
-  const itemIndex = Math.floor((timerDuration - timer) / 2);
+  const itemIndex = Math.floor((timerDuration - timer) / flashDuration);
 
   return (
     <MainPanel>
