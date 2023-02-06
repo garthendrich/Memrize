@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CheckIcon, HomeIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 import { Button, Header, MainPanel } from "@/components";
+import { useScoreAnimation } from "@/hooks";
 import { GameMode } from "@/shared";
 import { capitalize } from "@/utils";
-import { useEffect } from "react";
 
 export interface ResultScreenProps {
   items: string[];
@@ -23,11 +24,20 @@ export function ResultScreen({
     window.scroll({ top: 0 });
   }, []);
 
+  const [isScoreAnimating, setIsScoreAnimating] = useState(true);
+
   const score = answers.reduce(
     (acc: number, answer, answerIndex) =>
       answer === items[answerIndex] ? acc + 1 : acc,
     0
   );
+
+  const { counter: animatedScore } = useScoreAnimation({
+    score,
+    onFinish: () => {
+      setTimeout(() => setIsScoreAnimating(false), 1000);
+    },
+  });
 
   const lastNonEmptyAnswerIndex = answers.reduce(
     (value: number, answer, answerIndex) =>
@@ -35,6 +45,10 @@ export function ResultScreen({
     0
   );
   const nonEmptyAnswers = answers.slice(0, lastNonEmptyAnswerIndex + 1);
+
+  const fadeInClass = `transition-[opacity,transform] duration-500 ${
+    isScoreAnimating ? "opacity-0 scale-90 pointer-events-none" : ""
+  }`;
 
   return (
     <>
@@ -52,15 +66,17 @@ export function ResultScreen({
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl font-semibold">{capitalize(gameMode)}</p>
             <div className="flex items-end gap-2 font-semibold">
-              <p className="text-8xl">{score}</p>
+              <p className="text-8xl">{animatedScore}</p>
               <p className="text-3xl">/ {nonEmptyAnswers.length}</p>
             </div>
             <p className="text-xl">correct answers!</p>
           </div>
-          <div className="flex w-full flex-col gap-4">
+          <div className={`flex w-full flex-col gap-4 ${fadeInClass}`}>
             <Button onClick={restartGame}>Play again</Button>
           </div>
-          <div className="flex w-full flex-col items-center gap-4">
+          <div
+            className={`flex w-full flex-col items-center gap-4 ${fadeInClass}`}
+          >
             <hr className="my-4 w-full border-slate-700" />
             <p className="mb-4 text-xl font-semibold">Your answers:</p>
             {nonEmptyAnswers.map((answer, answerIndex) => (
