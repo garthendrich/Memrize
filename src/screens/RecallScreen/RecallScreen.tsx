@@ -1,7 +1,12 @@
 import { useState } from "react";
 
 import { Button, GameHeader, ItemList, Modal } from "@/components";
-import { useListNodeFocuser, useTimer } from "@/hooks";
+import {
+  useListNodeFocuser,
+  useModalKeyShortcuts,
+  useSubmitKeyShortcut,
+  useTimer,
+} from "@/hooks";
 
 export interface RecallScreenProps {
   answers: string[];
@@ -19,7 +24,7 @@ export function RecallScreen({
     onFinish: endPhase,
   });
 
-  const [isGameEndModalShown, setIsGameEndModalShown] = useState(false);
+  const [isNextPhaseModalShown, setIsNextPhaseModalShown] = useState(false);
 
   const { setNodesRef } = useListNodeFocuser();
 
@@ -44,19 +49,27 @@ export function RecallScreen({
     />
   );
 
+  useSubmitKeyShortcut(() => setIsNextPhaseModalShown(true));
+
+  useModalKeyShortcuts({
+    isModalShown: isNextPhaseModalShown,
+    onConfirm: endPhase,
+    onCancel: () => setIsNextPhaseModalShown(false),
+  });
+
   return (
     <>
       <GameHeader
         timer={timer}
         gamePhase="recall phase"
         nextPhaseButton={
-          <Button onClick={() => setIsGameEndModalShown(true)}>Finish</Button>
+          <Button onClick={() => setIsNextPhaseModalShown(true)}>Finish</Button>
         }
       />
 
       <ItemList items={answers} itemNodeBuilder={itemNodeBuilder} />
 
-      <Modal isShown={isGameEndModalShown}>
+      <Modal isShown={isNextPhaseModalShown}>
         <Modal.Body>
           <p>Are you sure want to end the game?</p>
         </Modal.Body>
@@ -67,7 +80,7 @@ export function RecallScreen({
           <Button
             color="primary"
             variant="outlined"
-            onClick={() => setIsGameEndModalShown(false)}
+            onClick={() => setIsNextPhaseModalShown(false)}
           >
             Not yet
           </Button>

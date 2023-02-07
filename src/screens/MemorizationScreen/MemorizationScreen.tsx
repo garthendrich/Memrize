@@ -1,7 +1,12 @@
 import { useState } from "react";
 
 import { Button, GameHeader, ItemFlasher, ItemList, Modal } from "@/components";
-import { useListNodeFocuser, useTimer } from "@/hooks";
+import {
+  useListNodeFocuser,
+  useModalKeyShortcuts,
+  useSubmitKeyShortcut,
+  useTimer,
+} from "@/hooks";
 import { GameMode } from "@/shared";
 
 export interface MemorizationScreenProps {
@@ -22,7 +27,7 @@ export function MemorizationScreen({
       : undefined,
   });
 
-  const [isRecallModalShown, setIsRecallModalShown] = useState(false);
+  const [isNextPhaseModalShown, setIsNextPhaseModalShown] = useState(false);
 
   const renderBody = () => {
     switch (gameMode) {
@@ -45,6 +50,14 @@ export function MemorizationScreen({
     }
   };
 
+  useSubmitKeyShortcut(() => setIsNextPhaseModalShown(true));
+
+  useModalKeyShortcuts({
+    isModalShown: isNextPhaseModalShown,
+    onConfirm: endPhase,
+    onCancel: () => setIsNextPhaseModalShown(false),
+  });
+
   return (
     <>
       <GameHeader
@@ -55,7 +68,7 @@ export function MemorizationScreen({
         }
         gamePhase="memorization phase"
         nextPhaseButton={
-          <Button onClick={() => setIsRecallModalShown(true)}>
+          <Button onClick={() => setIsNextPhaseModalShown(true)}>
             Start recall
           </Button>
         }
@@ -63,7 +76,7 @@ export function MemorizationScreen({
 
       {renderBody()}
 
-      <Modal isShown={isRecallModalShown}>
+      <Modal isShown={isNextPhaseModalShown}>
         <Modal.Body>
           <p>Are you sure you want to start recall?</p>
         </Modal.Body>
@@ -74,7 +87,7 @@ export function MemorizationScreen({
           <Button
             color="primary"
             variant="outlined"
-            onClick={() => setIsRecallModalShown(false)}
+            onClick={() => setIsNextPhaseModalShown(false)}
           >
             No
           </Button>

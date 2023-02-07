@@ -1,16 +1,10 @@
-export interface ModalBodyProps {
-  children: JSX.Element | JSX.Element[];
-}
+import { PropsWithJsxChildren } from "@/shared";
 
-export function ModalBody({ children }: ModalBodyProps) {
+export function ModalBody({ children }: PropsWithJsxChildren) {
   return <div className="text-lg text-stroke">{children}</div>;
 }
 
-export interface ModalFooterProps {
-  children: JSX.Element | JSX.Element[];
-}
-
-export function ModalFooter({ children }: ModalFooterProps) {
+export function ModalFooter({ children }: PropsWithJsxChildren) {
   return <div className="mt-auto flex justify-end gap-4">{children}</div>;
 }
 

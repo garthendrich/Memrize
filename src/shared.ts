@@ -5,6 +5,10 @@ import {
   flashWordsImageSrc,
 } from "@/assets/images";
 
+export interface PropsWithJsxChildren {
+  children: JSX.Element | JSX.Element[];
+}
+
 export const gameModes = [
   "classic words",
   "flash words",
