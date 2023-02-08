@@ -87,7 +87,11 @@ export function ResultScreen({
                   ) : (
                     <XMarkIcon className="h-6 w-6 fill-red-500" />
                   )}
-                  <p className="text-xl">{answer}</p>
+                  {answer !== "" ? (
+                    <p className="text-xl">{answer}</p>
+                  ) : (
+                    <p className="text-xl text-slate-400">—</p>
+                  )}
                   <div className="h-6 w-6" />
                 </div>
                 {answer !== items[answerIndex] && (
