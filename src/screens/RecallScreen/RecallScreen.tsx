@@ -26,10 +26,11 @@ export function RecallScreen({
 
   const [isNextPhaseModalShown, setIsNextPhaseModalShown] = useState(false);
 
-  const { setNodesRef } = useListNodeFocuser();
+  const { setNodesRef, setFocusedNodeIndex } = useListNodeFocuser();
 
   const itemNodeBuilder = (item: string, itemIndex: number) => (
     <input
+      onFocus={() => setFocusedNodeIndex(itemIndex)}
       className="w-full bg-transparent text-center outline-none focus:placeholder-transparent"
       type="text"
       value={item}

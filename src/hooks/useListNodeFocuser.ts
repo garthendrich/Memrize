@@ -117,5 +117,5 @@ export function useListNodeFocuser() {
     nodesRef.current[nodeIndex] = node;
   };
 
-  return { setNodesRef };
+  return { setNodesRef, setFocusedNodeIndex };
 }
