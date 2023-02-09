@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export function useListNodeFocuser() {
   const nodesRef = useRef<HTMLElement[]>([]);
   const [focusedNodeIndex, setFocusedNodeIndex] = useState(0);
+  const [highestFocusedNodeIndex, setHighestFocusedNodeIndex] = useState(0);
 
   const focusAt = (
     nodeIndex: number,
@@ -18,7 +19,13 @@ export function useListNodeFocuser() {
 
   useEffect(() => focusAt(0, { behavior: "auto" }), []);
 
-  useEffect(() => focusAt(focusedNodeIndex), [focusedNodeIndex]);
+  useEffect(() => {
+    focusAt(focusedNodeIndex);
+
+    setHighestFocusedNodeIndex((previousValue) =>
+      focusedNodeIndex > previousValue ? focusedNodeIndex : previousValue
+    );
+  }, [focusedNodeIndex]);
 
   useEffect(() => {
     const goToNextFocusedNode = () => {
@@ -117,5 +124,9 @@ export function useListNodeFocuser() {
     nodesRef.current[nodeIndex] = node;
   };
 
-  return { setNodesRef, setFocusedNodeIndex };
+  return {
+    setNodesRef,
+    setFocusedNodeIndex,
+    highestFocusedNodeIndex,
+  };
 }

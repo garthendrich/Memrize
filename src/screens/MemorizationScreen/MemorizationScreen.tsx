@@ -34,19 +34,25 @@ export function MemorizationScreen({
       case "classic words":
       case "classic numbers":
         // eslint-disable-next-line no-case-declarations
-        const { setFocusedNodeIndex, setNodesRef } = useListNodeFocuser();
+        const { setFocusedNodeIndex, setNodesRef, highestFocusedNodeIndex } =
+          useListNodeFocuser();
 
         // eslint-disable-next-line no-case-declarations
-        const itemNodeBuilder = (item: string, itemIndex: number) => (
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
-          <p
-            onClick={() => setFocusedNodeIndex(itemIndex)}
-            ref={(p) => setNodesRef(itemIndex, p!)}
-            className="cursor-pointer select-none"
-          >
-            {item}
-          </p>
-        );
+        const itemNodeBuilder = (item: string, itemIndex: number) => {
+          const textColor =
+            itemIndex > highestFocusedNodeIndex ? "text-primary-800" : "";
+
+          return (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+            <p
+              onClick={() => setFocusedNodeIndex(itemIndex)}
+              ref={(p) => setNodesRef(itemIndex, p!)}
+              className={`cursor-pointer select-none transition-colors ${textColor}`}
+            >
+              {item}
+            </p>
+          );
+        };
 
         return <ItemList items={items} itemNodeBuilder={itemNodeBuilder} />;
       case "flash words":

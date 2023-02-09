@@ -26,7 +26,8 @@ export function RecallScreen({
 
   const [isNextPhaseModalShown, setIsNextPhaseModalShown] = useState(false);
 
-  const { setNodesRef, setFocusedNodeIndex } = useListNodeFocuser();
+  const { setNodesRef, setFocusedNodeIndex, highestFocusedNodeIndex } =
+    useListNodeFocuser();
 
   const itemNodeBuilder = (item: string, itemIndex: number) => (
     <input
@@ -34,6 +35,7 @@ export function RecallScreen({
       className="w-full bg-transparent text-center outline-none focus:placeholder-transparent"
       type="text"
       value={item}
+      placeholder={itemIndex <= highestFocusedNodeIndex ? "—" : ""}
       ref={(input) => setNodesRef(itemIndex, input!)}
       onChange={(event) => {
         const newItem: string = event.target.value;
