@@ -28,36 +28,56 @@ export function useListNodeFocuser() {
   }, [focusedNodeIndex]);
 
   useEffect(() => {
-    const goToNextFocusedNode = () => {
+    const focusNextNode = () => {
       setFocusedNodeIndex((previousValue) =>
         Math.min(previousValue + 1, nodesRef.current.length - 1)
       );
     };
 
-    const goToPreviousFocusedNode = () => {
+    const focusPreviousNode = () => {
       setFocusedNodeIndex((previousValue) => Math.max(previousValue - 1, 0));
+    };
+
+    const focusFirstNode = () => {
+      setFocusedNodeIndex(0);
+    };
+
+    const focusEndmostFocusedNode = () => {
+      setFocusedNodeIndex(highestFocusedNodeIndex);
     };
 
     const handleWheelNavigation = (event: WheelEvent) => {
       event.preventDefault();
 
-      if (event.deltaY > 0) goToNextFocusedNode();
-      else goToPreviousFocusedNode();
+      if (event.deltaY > 0) focusNextNode();
+      else focusPreviousNode();
     };
 
     const handleKeyNavigation = (event: KeyboardEvent) => {
-      if (!["ArrowDown", "ArrowUp", "Enter", "Tab"].includes(event.code))
-        return;
+      if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.code)) {
+        event.preventDefault();
+      }
 
-      event.preventDefault();
+      switch (event.code) {
+        case "Enter":
+          if (event.ctrlKey) return;
 
-      if (["Enter", "Tab"].includes(event.code)) {
-        if (event.shiftKey) goToPreviousFocusedNode();
-        else goToNextFocusedNode();
-      } else if (event.code === "ArrowDown") {
-        goToNextFocusedNode();
-      } else if (event.code === "ArrowUp") {
-        goToPreviousFocusedNode();
+          if (event.shiftKey) focusPreviousNode();
+          else focusNextNode();
+          break;
+        case "ArrowDown":
+          focusNextNode();
+          break;
+        case "ArrowUp":
+          focusPreviousNode();
+          break;
+        case "Home":
+          focusFirstNode();
+          break;
+        case "End":
+          focusEndmostFocusedNode();
+          break;
+        default:
       }
     };
 
@@ -70,7 +90,7 @@ export function useListNodeFocuser() {
       document.body.removeEventListener("wheel", handleWheelNavigation);
       window.removeEventListener("keydown", handleKeyNavigation);
     };
-  }, []);
+  }, [highestFocusedNodeIndex]);
 
   useEffect(() => {
     const getDistanceToScreenMiddle = (node: HTMLElement) => {
