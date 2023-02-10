@@ -85,7 +85,7 @@ export function RecallScreen({
 
       <Modal isShown={isNextPhaseModalShown}>
         <Modal.Body>
-          <p>Are you sure want to end the game?</p>
+          <p>Are you sure want to finish the game?</p>
         </Modal.Body>
         <Modal.Footer>
           <Button color="primary" onClick={endPhase}>

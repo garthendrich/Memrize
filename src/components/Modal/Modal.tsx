@@ -16,7 +16,7 @@ export interface ModalProps {
 export function Modal({ isShown, children }: ModalProps) {
   return (
     <div
-      className={`fixed top-0 left-0 flex h-full w-full items-center justify-center bg-stroke transition ${
+      className={`fixed top-0 left-0 flex h-full w-full items-center justify-center bg-stroke p-4 transition ${
         isShown ? "bg-opacity-75" : "pointer-events-none bg-opacity-0"
       }`}
     >

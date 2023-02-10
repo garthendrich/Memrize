@@ -62,14 +62,16 @@ export function ResultScreen({
         </Header.Segment>
       </Header>
       <MainPanel>
-        <div className="flex min-h-screen min-w-[28rem] flex-col items-center gap-8 bg-stroke px-16 pt-24 pb-16">
+        <div className="flex h-full min-h-screen w-[28rem] max-w-full flex-col items-center gap-8 bg-stroke px-12 pt-24 pb-16">
           <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl font-semibold">{capitalize(gameMode)}</p>
+            <p className="text-center text-2xl font-semibold">
+              {capitalize(gameMode)}
+            </p>
             <div className="flex items-end gap-2 font-semibold">
               <p className="text-8xl">{animatedScore}</p>
               <p className="text-3xl">/ {nonEmptyAnswers.length}</p>
             </div>
-            <p className="text-xl">correct answers!</p>
+            <p className="text-center text-xl">correct answers!</p>
           </div>
           <div className={`flex w-full flex-col gap-4 ${fadeInClass}`}>
             <Button onClick={restartGame}>Play again</Button>
@@ -96,8 +98,10 @@ export function ResultScreen({
                 </div>
                 {answer !== items[answerIndex] && (
                   <div className="flex gap-1 text-slate-400">
-                    <p>correct answer:</p>
-                    <p className="font-semibold">{items[answerIndex]}</p>
+                    <p className="text-center">correct answer:</p>
+                    <p className="text-center font-semibold">
+                      {items[answerIndex]}
+                    </p>
                   </div>
                 )}
               </div>

@@ -26,12 +26,14 @@ export function FocusScreen({
     <>
       <Header isFixed>
         <Header.Segment className="justify-center">
-          <p className="text-xl font-semibold">{capitalize(gameMode)}</p>
+          <p className="text-center text-xl font-semibold">
+            {capitalize(gameMode)}
+          </p>
         </Header.Segment>
       </Header>
       <MainPanel className="h-screen justify-center">
-        <div className="flex w-screen flex-col items-center justify-center bg-stroke p-12">
-          <p className="text-2xl">{text}</p>
+        <div className="flex w-screen flex-col items-center justify-center gap-4 bg-stroke p-12">
+          <p className="text-center text-2xl">{text}</p>
           <p className="text-9xl font-semibold">{timer}</p>
         </div>
       </MainPanel>

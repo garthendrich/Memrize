@@ -28,7 +28,9 @@ export function GameHeader({
           <Button variant="outlined" onClick={() => setIsLeaveModalShown(true)}>
             <ArrowLeftOnRectangleIcon className="h-6 w-6" />
           </Button>
-          <p className="ml-4 text-lg font-semibold">{capitalize(gamePhase)}</p>
+          <p className="ml-4 hidden text-lg font-semibold sm:block">
+            {capitalize(gamePhase)}
+          </p>
         </Header.Segment>
         <Header.Segment className="justify-end gap-4">
           <p className="text-xl font-semibold">
@@ -37,7 +39,7 @@ export function GameHeader({
           {nextPhaseButton}
         </Header.Segment>
         <div className="absolute bottom-0 left-0">
-          <div className="absolute top-0 left-0 h-24 w-screen bg-gradient-to-b from-primary-900 to-transparent" />
+          <div className="pointer-events-none absolute top-0 left-0 h-24 w-screen bg-gradient-to-b from-primary-900 to-transparent" />
         </div>
       </Header>
 
