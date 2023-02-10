@@ -1,12 +1,7 @@
 import { useState } from "react";
 
 import { Button, GameHeader, ItemFlasher, ItemList, Modal } from "@/components";
-import {
-  useListNodeFocuser,
-  useModalKeyShortcuts,
-  useSubmitKeyShortcut,
-  useTimer,
-} from "@/hooks";
+import { useKey, useListNodeFocuser, useTimer } from "@/hooks";
 import { GameMode } from "@/shared";
 
 export interface MemorizationScreenProps {
@@ -63,13 +58,29 @@ export function MemorizationScreen({
     }
   };
 
-  useSubmitKeyShortcut(() => setIsNextPhaseModalShown(true));
+  // [START] next phase modal shortcuts
 
-  useModalKeyShortcuts({
-    isModalShown: isNextPhaseModalShown,
-    onConfirm: endPhase,
-    onCancel: () => setIsNextPhaseModalShown(false),
-  });
+  useKey({ code: "Enter", ctrlKey: true }, () =>
+    setIsNextPhaseModalShown(true)
+  );
+
+  useKey(
+    { code: "Enter" },
+    () => {
+      if (isNextPhaseModalShown) endPhase();
+    },
+    [isNextPhaseModalShown]
+  );
+
+  useKey(
+    { code: "Escape" },
+    () => {
+      if (isNextPhaseModalShown) setIsNextPhaseModalShown(false);
+    },
+    [isNextPhaseModalShown]
+  );
+
+  // [END] modal shortcuts
 
   return (
     <>
