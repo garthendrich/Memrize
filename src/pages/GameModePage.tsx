@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { MemrizeLogo } from "@/assets/svgs";
 import { Button, Header, MainPanel } from "@/components";
+import { useKey } from "@/hooks";
 import { GameMode, gameModeInfo } from "@/shared";
 import { capitalize } from "@/utils";
 
@@ -10,6 +11,12 @@ export interface GameModePageProps {
 }
 
 export function GameModePage({ gameMode }: GameModePageProps) {
+  const gameLink = `/game/${gameMode.replace(" ", "-")}`;
+
+  const navigate = useNavigate();
+
+  useKey({ code: "Enter", ctrlKey: true }, () => navigate(gameLink));
+
   return (
     <>
       <Header isFixed>
@@ -29,7 +36,7 @@ export function GameModePage({ gameMode }: GameModePageProps) {
             <p className="text-center text-3xl font-semibold">
               {capitalize(gameMode)}
             </p>
-            <Link to={`/game/${gameMode.replace(" ", "-")}`} className="w-full">
+            <Link to={gameLink} className="w-full">
               <Button className="w-full">Start</Button>
             </Link>
           </div>

@@ -74,7 +74,7 @@ export function RecallScreen({
     [isNextPhaseModalShown]
   );
 
-  // [END] modal shortcuts
+  // [END] next phase modal shortcuts
 
   return (
     <>

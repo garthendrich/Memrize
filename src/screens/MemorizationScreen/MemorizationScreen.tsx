@@ -70,7 +70,7 @@ export function MemorizationScreen({
     }
   };
 
-  // [START] next phase modal shortcuts
+  // [START] recall phase modal shortcuts
 
   useKey({ code: "Enter", ctrlKey: true }, () =>
     setIsNextPhaseModalShown(true)
@@ -92,7 +92,7 @@ export function MemorizationScreen({
     [isNextPhaseModalShown]
   );
 
-  // [END] modal shortcuts
+  // [END] recall phase modal shortcuts
 
   return (
     <>

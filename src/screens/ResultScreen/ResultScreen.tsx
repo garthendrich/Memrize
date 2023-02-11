@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CheckIcon, HomeIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 import { Button, Header, MainPanel } from "@/components";
-import { useScoreAnimation } from "@/hooks";
+import { useKey, useScoreAnimation } from "@/hooks";
 import { GameMode } from "@/shared";
 import { capitalize } from "@/utils";
 
@@ -49,6 +49,8 @@ export function ResultScreen({
   const fadeInClass = `transition-[opacity,transform] duration-500 ${
     isScoreAnimating ? "opacity-0 scale-90 pointer-events-none" : ""
   }`;
+
+  useKey({ code: "Enter", ctrlKey: true }, () => restartGame());
 
   return (
     <>
