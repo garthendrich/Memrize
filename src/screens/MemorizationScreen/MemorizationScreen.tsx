@@ -16,7 +16,7 @@ export function MemorizationScreen({
   onPhaseEnd: endPhase,
 }: MemorizationScreenProps) {
   const { timer } = useTimer({
-    seconds: 300,
+    seconds: 60,
     onFinish: ["classic words", "classic numbers"].includes(gameMode)
       ? endPhase
       : undefined,
