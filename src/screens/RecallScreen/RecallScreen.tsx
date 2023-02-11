@@ -21,8 +21,13 @@ export function RecallScreen({
 
   const [isNextPhaseModalShown, setIsNextPhaseModalShown] = useState(false);
 
-  const { setNodesRef, setFocusedNodeIndex, highestFocusedNodeIndex } =
-    useListNodeFocuser();
+  const {
+    setNodesRef,
+    setFocusedNodeIndex,
+    highestFocusedNodeIndex,
+    focusPreviousNode,
+    focusNextNode,
+  } = useListNodeFocuser();
 
   const itemNodeBuilder = (item: string, itemIndex: number) => (
     <input
@@ -81,7 +86,12 @@ export function RecallScreen({
         }
       />
 
-      <ItemList items={answers} itemNodeBuilder={itemNodeBuilder} />
+      <ItemList
+        items={answers}
+        itemNodeBuilder={itemNodeBuilder}
+        focusPreviousNode={focusPreviousNode}
+        focusNextNode={focusNextNode}
+      />
 
       <Modal isShown={isNextPhaseModalShown}>
         <Modal.Body>

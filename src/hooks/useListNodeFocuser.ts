@@ -17,6 +17,24 @@ export function useListNodeFocuser() {
     node.focus();
   };
 
+  const focusNextNode = () => {
+    setFocusedNodeIndex((previousValue) =>
+      Math.min(previousValue + 1, nodesRef.current.length - 1)
+    );
+  };
+
+  const focusPreviousNode = () => {
+    setFocusedNodeIndex((previousValue) => Math.max(previousValue - 1, 0));
+  };
+
+  const focusFirstNode = () => {
+    setFocusedNodeIndex(0);
+  };
+
+  const focusEndmostFocusedNode = () => {
+    setFocusedNodeIndex(highestFocusedNodeIndex);
+  };
+
   useEffect(() => focusAt(0, { behavior: "auto" }), []);
 
   useEffect(() => {
@@ -28,24 +46,6 @@ export function useListNodeFocuser() {
   }, [focusedNodeIndex]);
 
   useEffect(() => {
-    const focusNextNode = () => {
-      setFocusedNodeIndex((previousValue) =>
-        Math.min(previousValue + 1, nodesRef.current.length - 1)
-      );
-    };
-
-    const focusPreviousNode = () => {
-      setFocusedNodeIndex((previousValue) => Math.max(previousValue - 1, 0));
-    };
-
-    const focusFirstNode = () => {
-      setFocusedNodeIndex(0);
-    };
-
-    const focusEndmostFocusedNode = () => {
-      setFocusedNodeIndex(highestFocusedNodeIndex);
-    };
-
     const handleWheelNavigation = (event: WheelEvent) => {
       event.preventDefault();
 
@@ -148,5 +148,9 @@ export function useListNodeFocuser() {
     setNodesRef,
     setFocusedNodeIndex,
     highestFocusedNodeIndex,
+    focusNextNode,
+    focusPreviousNode,
+    focusFirstNode,
+    focusEndmostFocusedNode,
   };
 }

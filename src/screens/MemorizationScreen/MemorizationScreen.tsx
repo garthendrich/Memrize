@@ -29,8 +29,13 @@ export function MemorizationScreen({
       case "classic words":
       case "classic numbers":
         // eslint-disable-next-line no-case-declarations
-        const { setFocusedNodeIndex, setNodesRef, highestFocusedNodeIndex } =
-          useListNodeFocuser();
+        const {
+          setFocusedNodeIndex,
+          setNodesRef,
+          highestFocusedNodeIndex,
+          focusPreviousNode,
+          focusNextNode,
+        } = useListNodeFocuser();
 
         // eslint-disable-next-line no-case-declarations
         const itemNodeBuilder = (item: string, itemIndex: number) => {
@@ -49,7 +54,14 @@ export function MemorizationScreen({
           );
         };
 
-        return <ItemList items={items} itemNodeBuilder={itemNodeBuilder} />;
+        return (
+          <ItemList
+            items={items}
+            itemNodeBuilder={itemNodeBuilder}
+            focusPreviousNode={focusPreviousNode}
+            focusNextNode={focusNextNode}
+          />
+        );
       case "flash words":
       case "flash numbers":
         return <ItemFlasher items={items} onEnd={endPhase} />;
