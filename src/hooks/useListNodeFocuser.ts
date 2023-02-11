@@ -5,6 +5,9 @@ export function useListNodeFocuser() {
   const [focusedNodeIndex, setFocusedNodeIndex] = useState(0);
   const [highestFocusedNodeIndex, setHighestFocusedNodeIndex] = useState(0);
 
+  const [touchScrollStartY, setTouchScrollStartY] = useState(0);
+  const [isTouchMoved, setIsTouchMoved] = useState(false);
+
   const focusAt = (
     nodeIndex: number,
     scrollOptions: ScrollOptions = { behavior: "smooth" }
@@ -130,15 +133,44 @@ export function useListNodeFocuser() {
 
     const handleMouseUpOnScrollBar = (event: MouseEvent) => {
       const clickedElement = event.target as HTMLElement;
-      if (clickedElement.tagName === "HTML") setTimeout(focusNearest, 20);
+      if (clickedElement.tagName === "HTML") setTimeout(focusNearest, 30);
+    };
+
+    const handleTouchStart = () => {
+      setTouchScrollStartY(window.scrollY);
+    };
+
+    const handleTouchMove = () => {
+      setIsTouchMoved(true);
+    };
+
+    const handleTouchEnd = () => {
+      if (!isTouchMoved || touchScrollStartY === window.scrollY) {
+        setIsTouchMoved(false);
+        return;
+      }
+
+      setIsTouchMoved(false);
+
+      document.body.style.overflowY = "hidden";
+      setTimeout(() => {
+        document.body.style.overflowY = "";
+        focusNearest();
+      }, 30);
     };
 
     window.addEventListener("mouseup", handleMouseUpOnScrollBar);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       window.removeEventListener("mouseup", handleMouseUpOnScrollBar);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, []);
+  }, [isTouchMoved]);
 
   const setNodesRef = (nodeIndex: number, node: HTMLElement) => {
     nodesRef.current[nodeIndex] = node;
