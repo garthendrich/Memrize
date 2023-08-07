@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Button, GameHeader, ItemFlasher, ItemList, Modal } from "@/components";
-import { useKey, useListNodeFocuser, useTimer } from "@/hooks";
+import { useKey, useTimer } from "@/hooks";
 import { GameMode } from "@/shared";
 
 export interface MemorizationScreenProps {
@@ -9,6 +9,8 @@ export interface MemorizationScreenProps {
   items: string[];
   onPhaseEnd: () => void;
 }
+
+const itemNodeBuilder = (item: string) => <p>{item}</p>;
 
 export function MemorizationScreen({
   gameMode,
@@ -28,40 +30,7 @@ export function MemorizationScreen({
     switch (gameMode) {
       case "classic words":
       case "classic numbers":
-        // eslint-disable-next-line no-case-declarations
-        const {
-          setFocusedNodeIndex,
-          setNodesRef,
-          highestFocusedNodeIndex,
-          focusPreviousNode,
-          focusNextNode,
-        } = useListNodeFocuser();
-
-        // eslint-disable-next-line no-case-declarations
-        const itemNodeBuilder = (item: string, itemIndex: number) => {
-          const textColor =
-            itemIndex > highestFocusedNodeIndex ? "text-primary-800" : "";
-
-          return (
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
-            <p
-              onClick={() => setFocusedNodeIndex(itemIndex)}
-              ref={(p) => setNodesRef(itemIndex, p!)}
-              className={`cursor-pointer select-none transition-colors ${textColor}`}
-            >
-              {item}
-            </p>
-          );
-        };
-
-        return (
-          <ItemList
-            items={items}
-            itemNodeBuilder={itemNodeBuilder}
-            focusPreviousNode={focusPreviousNode}
-            focusNextNode={focusNextNode}
-          />
-        );
+        return <ItemList items={items} itemNodeBuilder={itemNodeBuilder} />;
       case "flash words":
       case "flash numbers":
         return <ItemFlasher items={items} onEnd={endPhase} />;

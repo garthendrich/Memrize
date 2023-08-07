@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button, GameHeader, ItemList, Modal } from "@/components";
-import { useKey, useListNodeFocuser, useTimer } from "@/hooks";
+import { useKey, useTimer } from "@/hooks";
 
 export interface RecallScreenProps {
   answers: string[];
@@ -21,22 +21,14 @@ export function RecallScreen({
 
   const [isNextPhaseModalShown, setIsNextPhaseModalShown] = useState(false);
 
-  const {
-    setNodesRef,
-    setFocusedNodeIndex,
-    highestFocusedNodeIndex,
-    focusPreviousNode,
-    focusNextNode,
-  } = useListNodeFocuser();
+  const firstInputRef = useRef<HTMLInputElement>(null);
 
   const itemNodeBuilder = (item: string, itemIndex: number) => (
     <input
-      onFocus={() => setFocusedNodeIndex(itemIndex)}
-      className="w-full bg-transparent text-center outline-none focus:placeholder-transparent"
+      ref={itemIndex === 0 ? firstInputRef : null}
+      className="w-full bg-transparent text-center outline-none"
       type="text"
       value={item}
-      placeholder={itemIndex <= highestFocusedNodeIndex ? "—" : ""}
-      ref={(input) => setNodesRef(itemIndex, input!)}
       onChange={(event) => {
         const newItem: string = event.target.value;
 
@@ -51,6 +43,8 @@ export function RecallScreen({
       }}
     />
   );
+
+  useEffect(() => firstInputRef.current!.focus(), []);
 
   // [START] next phase modal shortcuts
 
@@ -86,12 +80,7 @@ export function RecallScreen({
         }
       />
 
-      <ItemList
-        items={answers}
-        itemNodeBuilder={itemNodeBuilder}
-        focusPreviousNode={focusPreviousNode}
-        focusNextNode={focusNextNode}
-      />
+      <ItemList items={answers} itemNodeBuilder={itemNodeBuilder} />
 
       <Modal isShown={isNextPhaseModalShown}>
         <Modal.Body>
