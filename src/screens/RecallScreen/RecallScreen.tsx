@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
-import { Button, GameHeader, ItemList, Modal } from "@/components";
+import { Button, GameHeader, ItemListWrapper, Modal } from "@/components";
 import { useKey, useTimer } from "@/hooks";
 
 export interface RecallScreenProps {
@@ -20,31 +20,6 @@ export function RecallScreen({
   });
 
   const [isNextPhaseModalShown, setIsNextPhaseModalShown] = useState(false);
-
-  const firstInputRef = useRef<HTMLInputElement>(null);
-
-  const itemNodeBuilder = (item: string, itemIndex: number) => (
-    <input
-      ref={itemIndex === 0 ? firstInputRef : null}
-      className="w-full bg-transparent text-center outline-none"
-      type="text"
-      value={item}
-      onChange={(event) => {
-        const newItem: string = event.target.value;
-
-        setAnswers((previousAnswers) =>
-          previousAnswers.map((_item, _itemIndex) => {
-            if (_itemIndex === itemIndex) {
-              return newItem;
-            }
-            return _item;
-          })
-        );
-      }}
-    />
-  );
-
-  useEffect(() => firstInputRef.current!.focus(), []);
 
   // [START] next phase modal shortcuts
 
@@ -80,7 +55,22 @@ export function RecallScreen({
         }
       />
 
-      <ItemList items={answers} itemNodeBuilder={itemNodeBuilder} />
+      <ItemListWrapper>
+        {answers.map((answer, answerIndex) => (
+          <input
+            className="w-full bg-transparent text-center outline-none"
+            type="text"
+            value={answer}
+            onChange={(event) => {
+              setAnswers((previousAnswers) =>
+                previousAnswers.map((_item, _itemIndex) =>
+                  _itemIndex === answerIndex ? event.target.value : _item
+                )
+              );
+            }}
+          />
+        ))}
+      </ItemListWrapper>
 
       <Modal isShown={isNextPhaseModalShown}>
         <Modal.Body>

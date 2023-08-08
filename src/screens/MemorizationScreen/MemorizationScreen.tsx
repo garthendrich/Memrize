@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-import { Button, GameHeader, ItemFlasher, ItemList, Modal } from "@/components";
+import {
+  Button,
+  GameHeader,
+  ItemFlasher,
+  ItemListWrapper,
+  Modal,
+} from "@/components";
 import { useKey, useTimer } from "@/hooks";
 import { GameMode } from "@/shared";
 
@@ -9,8 +15,6 @@ export interface MemorizationScreenProps {
   items: string[];
   onPhaseEnd: () => void;
 }
-
-const itemNodeBuilder = (item: string) => <p>{item}</p>;
 
 export function MemorizationScreen({
   gameMode,
@@ -30,7 +34,13 @@ export function MemorizationScreen({
     switch (gameMode) {
       case "classic words":
       case "classic numbers":
-        return <ItemList items={items} itemNodeBuilder={itemNodeBuilder} />;
+        return (
+          <ItemListWrapper>
+            {items.map((item) => (
+              <p>{item}</p>
+            ))}
+          </ItemListWrapper>
+        );
       case "flash words":
       case "flash numbers":
         return <ItemFlasher items={items} onEnd={endPhase} />;
