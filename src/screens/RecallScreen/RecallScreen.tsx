@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button, GameHeader, ItemListWrapper, Modal } from "@/components";
 import { useKey, useTimer } from "@/hooks";
@@ -8,6 +8,17 @@ export interface RecallScreenProps {
   setAnswers: React.Dispatch<React.SetStateAction<string[]>>;
   onPhaseEnd: () => void;
 }
+
+const centerInput = (event: React.SyntheticEvent) => {
+  const input = event.target as HTMLInputElement;
+
+  const inputMiddlePos = input.offsetTop + input.clientHeight / 2;
+  const screenMiddlePos = window.innerHeight / 2;
+  window.scroll({
+    top: inputMiddlePos - screenMiddlePos,
+    behavior: "smooth",
+  });
+};
 
 export function RecallScreen({
   answers,
@@ -20,6 +31,10 @@ export function RecallScreen({
   });
 
   const [isNextPhaseModalShown, setIsNextPhaseModalShown] = useState(false);
+
+  const inputRefs = useRef<HTMLInputElement[]>([]);
+
+  useEffect(() => inputRefs.current![0].focus(), []);
 
   // [START] next phase modal shortcuts
 
@@ -58,8 +73,12 @@ export function RecallScreen({
       <ItemListWrapper>
         {answers.map((answer, answerIndex) => (
           <input
-            className="w-full bg-transparent text-center outline-none"
+            ref={(input) => {
+              inputRefs.current[answerIndex] = input!;
+            }}
+            className="w-full bg-transparent text-center outline-none focus:placeholder-transparent"
             type="text"
+            placeholder="—"
             value={answer}
             onChange={(event) => {
               setAnswers((previousAnswers) =>
@@ -68,6 +87,23 @@ export function RecallScreen({
                 )
               );
             }}
+            onKeyDown={(event) => {
+              if (event.code !== "Enter") return;
+
+              let inputToFocus: HTMLInputElement | null = null;
+
+              if (event.shiftKey && answerIndex > 0) {
+                inputToFocus = inputRefs.current![answerIndex - 1];
+              } else if (!event.shiftKey && answerIndex < answers.length - 1) {
+                inputToFocus = inputRefs.current![answerIndex + 1];
+              }
+
+              if (inputToFocus) {
+                inputToFocus.select();
+              }
+            }}
+            onFocus={centerInput}
+            onClick={centerInput}
           />
         ))}
       </ItemListWrapper>
